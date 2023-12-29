@@ -41,20 +41,26 @@ class _SectionState extends State<Section> {
           border: widget.borders == true ? Border.all(color: secclr2) : null),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         widget.title != null
-            ? Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.title!,
-                      style: TextStyle(
-                          fontSize: txtsz4, color: widget.titleClr ?? txtclr1),
-                    ),
-                    widget.subTitle == null
-                        ? const SizedBox()
-                        : widget.subTitle!,
-                  ],
+            ? SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    children: [
+                      FittedBox(
+                        child: Text(
+                          widget.title!,
+                          style: TextStyle(
+                              fontSize: txtsz4,
+                              color: widget.titleClr ?? txtclr1),
+                        ),
+                      ),
+                      widget.subTitle == null
+                          ? const SizedBox()
+                          : FittedBox(child: widget.subTitle!),
+                    ],
+                  ),
                 ),
               )
             : SizedBox(),

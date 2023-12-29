@@ -66,70 +66,86 @@ class _TaskCardState extends State<TaskCard> {
                         ),
                       ],
                     )
-                  : Text(
-                      userTasks[widget.taskId]["content"],
-                      style: TextStyle(
-                          color: txtclr1,
-                          fontSize: txtsz3,
-                          decoration: userTasks[widget.taskId]["completed"]
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none),
+                  : Center(
+                      child: Text(
+                        userTasks[widget.taskId]["content"],
+                        style: TextStyle(
+                            color: txtclr1,
+                            fontSize: txtsz3,
+                            decoration: userTasks[widget.taskId]["completed"]
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none),
+                      ),
                     ),
+
+              //
               MySpacer(num: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyCircleIcnButton(
-                    icn: Icons.delete_outline,
-                    bgClr: lightred,
-                    onPressed: () async {
-                      await deleteTask(widget.taskId);
-                      await refreshHomePage();
-                    },
-                  ),
-                  Row(
-                    children: [
-                      MyCircleIcnButton(
-                        icn: !editing ? Icons.edit : Icons.clear,
-                        bgClr: secclr1,
-                        onPressed: () async {
-                          editing = !editing;
-                          if (editing) {
-                            editingCtrl.text =
-                                userTasks[widget.taskId]["content"];
-                          }
-
-                          setState(() {});
-                        },
-                      ),
-                      Row(
-                        children: userTasks[widget.taskId]["completed"]!
-                            ? []
-                            : [
-                                MySpacer(
-                                  num: 2,
-                                  xAxis: true,
-                                ),
-                                MyCircleIcnButton(
-                                  icn: Icons.check,
-                                  bgClr: editing ? secclr1 : lightgreen,
-                                  onPressed: () async {
-                                    if (editing) {
-                                      await editTask(
-                                          widget.taskId, editingCtrl.text);
-
-                                      editing = false;
-                                    } else {
-                                      await completeTask(widget.taskId);
-                                    }
-                                    await refreshHomePage();
-                                  },
+              //
+              SizedBox(
+                width: double.infinity,
+                child: Wrap(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  alignment: WrapAlignment.spaceBetween,
+                  children: [
+                    FittedBox(
+                        child: MyCircleIcnButton(
+                      icn: Icons.delete_outline,
+                      bgClr: lightred,
+                      onPressed: () async {
+                        await deleteTask(widget.taskId);
+                        await refreshHomePage();
+                      },
+                    )),
+                    FittedBox(
+                      child: Wrap(
+                        children: [
+                          userTasks[widget.taskId]["completed"]!
+                              ? SizedBox(
+                                  width: 35,
+                                  height: 35,
                                 )
-                              ],
+                              : FittedBox(
+                                  child: MyCircleIcnButton(
+                                    icn: !editing ? Icons.edit : Icons.clear,
+                                    bgClr: secclr1,
+                                    onPressed: () async {
+                                      editing = !editing;
+                                      if (editing) {
+                                        editingCtrl.text =
+                                            userTasks[widget.taskId]["content"];
+                                      }
+
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                          userTasks[widget.taskId]["completed"]!
+                              ? SizedBox()
+                              : FittedBox(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: MyCircleIcnButton(
+                                      icn: Icons.check,
+                                      bgClr: editing ? secclr1 : lightgreen,
+                                      onPressed: () async {
+                                        if (editing) {
+                                          await editTask(
+                                              widget.taskId, editingCtrl.text);
+
+                                          editing = false;
+                                        } else {
+                                          await completeTask(widget.taskId);
+                                        }
+                                        await refreshHomePage();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               )
             ]
           : [],
