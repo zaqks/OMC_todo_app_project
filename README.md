@@ -1,4 +1,4 @@
-#simple http todo app
+# Simple http todo app
 
 this is a simple todo app with basic operations including adding, editing, deleting tasks
 the tasks are stored in a simple database which can be accessed through an http server
