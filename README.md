@@ -1,5 +1,7 @@
 # Simple http todo app
 
+<img src="https://github.com/zaqks/OMC_todo_app_project/blob/main/screenshots/flutter_02.png"></img>
+
 this is a simple todo app with basic operations including adding, editing, deleting tasks
 the tasks are stored in a simple database which can be accessed through an http server
 
